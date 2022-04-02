@@ -91,15 +91,21 @@ class _SearchState extends State<Search> {
                 ),
               );
             }
-            return ListView.builder(
+            return ListView.separated(
               itemCount: listaAlimentos.length,
               itemBuilder: (context, index) {
                 final alimento = listaAlimentos[index];
                 return ListTile(
                   title: Text(alimento.nome),
                   subtitle: Text(alimento.info),
+                  onTap: () {
+                    Navigator.pop<Alimento>(context, alimento);
+                  },
                 );
               },
+              separatorBuilder: (context, index) => const Divider(
+                height: 0,
+              ),
             );
           }),
     );

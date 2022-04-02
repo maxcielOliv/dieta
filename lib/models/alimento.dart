@@ -1,40 +1,55 @@
-class Alimento {
+import 'package:dieta/models/info_nutricional.dart';
+
+class Alimento implements InfoNutricional {
   final int? id; // Chave primária do alimeto
   final String nome; // Nome do alimento
-  final double qtdBase; // Quantidade em gramas do alimeto
   final int categoria; // Chave estrangeira da categoria do alimento
+  @override
+  final double qtd; // Quantidade em gramas do alimeto
+  @override
   final double proteina; // Quantidade em gramas de proteína
+  @override
   final double carboidrato; // Quantidade em gramas de carboidrato
-  final double gordura; // Quantidade em gramas de gordura
-  final double? gSaturada; // Quantidade em gramas de gordura sturada
+  @override
+  final double gorduras; // Quantidade em gramas de gordura
+  @override
+  final double? gSaturadas; // Quantidade em gramas de gordura sturada
+  @override
   final double? gTrans; // Quantidade em gramas de gordura trans
-  final double? fibra; // Quantidade em gramas de fibra
+  @override
+  final double? fibras; // Quantidade em gramas de fibra
+  @override
   final double? sodio; // Quantidade em miligramas de sódio
   final DateTime criacao; // Data e hora da criação do registro
   final DateTime? atualizacao; // Data e hora da última atualização do registro
 
+  double get proteinaR => _arredondar(proteina);
+  double get carboidratoR => _arredondar(carboidrato);
+  double get gorduraR => _arredondar(gorduras);
+
+  @override
   double get calorias {
     final p = proteina == 0 ? 1.0 : proteina;
     final c = carboidrato == 0 ? 1.0 : carboidrato;
-    final g = gordura == 0 ? 1.0 : gordura;
+    final g = gorduras == 0 ? 1.0 : gorduras;
     return double.parse(((p + c * 4) + (g * 9)).toStringAsFixed(2));
   }
 
   String get info {
-    return 'Proteína: ${proteina}g | Carboidrato: ${carboidrato}g | Gordura: ${gordura}g';
+    return 'Pro: ${proteina}g | Car: ${carboidrato}g | Gor: ${gorduras}g';
   }
 
   Alimento({
     this.id,
     required this.nome,
-    this.qtdBase = 100,
+    this.qtd = 100,
     required this.categoria,
     this.proteina = 0,
     this.carboidrato = 0,
-    this.gordura = 0,
-    this.gSaturada,
+    this.gorduras = 0,
+    this.gSaturadas,
     this.gTrans,
-    this.fibra,
+    this.fibras,
     this.sodio,
     required this.criacao,
     this.atualizacao,
@@ -45,14 +60,14 @@ class Alimento {
     res.addAll(id != null ? {'id': id} : {});
     res.addAll({
       'nome': nome,
-      'qtd_base': qtdBase,
+      'qtd': qtd,
       'categoria': categoria,
       'proteina': proteina,
       'carboidrato': carboidrato,
-      'gordura': gordura,
-      'g_saturada': gSaturada,
+      'gordura': gorduras,
+      'g_saturada': gSaturadas,
       'g_trans': gTrans,
-      'fibra': fibra,
+      'fibra': fibras,
       'sodio': sodio,
       'criacao': criacao.toIso8601String(),
       'atualizacao': atualizacao?.toIso8601String(),
@@ -64,14 +79,14 @@ class Alimento {
     return Alimento(
       id: json['id'],
       nome: json['nome'],
-      qtdBase: json['qtd_base'].toDouble(),
+      qtd: json['qtd'].toDouble(),
       categoria: json['categoria'],
       proteina: json['proteina'].toDouble(),
       carboidrato: json['carboidrato'].toDouble(),
-      gordura: json['gordura'].toDouble(),
-      gSaturada: json['g_saturada']?.toDouble(),
+      gorduras: json['gordura'].toDouble(),
+      gSaturadas: json['g_saturada']?.toDouble(),
       gTrans: json['g_trans']?.toDouble(),
-      fibra: json['fibra']?.toDouble(),
+      fibras: json['fibra']?.toDouble(),
       sodio: json['sodio']?.toDouble(),
       criacao: DateTime.parse(json['criacao']),
       atualizacao: json['atualizacao'] != null
@@ -80,8 +95,30 @@ class Alimento {
     );
   }
 
+  double _arredondar(double valor) {
+    return double.parse(valor.toStringAsFixed(2));
+  }
+
   @override
   String toString() {
-    return 'ID: ${id ?? '*'} - NOME: $nome\nQuantidade: ${qtdBase}g\nProteina: ${proteina}g\nCarboidrato: ${carboidrato}g\nGordura: ${gordura}g\ng - Saturada: ${gSaturada}g\n - Trans: ${gTrans}g\nFibra: ${fibra}g\nSódio: ${sodio}mg\n';
+    return 'ID: ${id ?? '*'} - $nome\nQuantidade: ${qtd}g\nProteina: ${proteina}g\nCarboidrato: ${carboidrato}g\nGordura: ${gorduras}g\ng - Saturada: ${gSaturadas}g\n - Trans: ${gTrans}g\nFibra: ${fibras}g\nSódio: ${sodio}mg\n';
+  }
+
+  Alimento copyWith({required double qtd}) {
+    return Alimento(
+      id: id,
+      nome: nome,
+      qtd: qtd,
+      categoria: categoria,
+      proteina: (proteina * qtd) / this.qtd,
+      carboidrato: (carboidrato * qtd) / this.qtd,
+      gorduras: (gorduras * qtd) / this.qtd,
+      gSaturadas: gSaturadas == null ? null : (gSaturadas! * qtd) / this.qtd,
+      gTrans: gTrans == null ? null : (gTrans! * qtd) / this.qtd,
+      fibras: fibras == null ? null : (fibras! * qtd) / this.qtd,
+      sodio: sodio == null ? null : (sodio! * qtd) / this.qtd,
+      criacao: criacao,
+      atualizacao: atualizacao,
+    );
   }
 }

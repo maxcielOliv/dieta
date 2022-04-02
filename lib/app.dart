@@ -1,6 +1,5 @@
 import 'package:dieta/screens/home.dart';
 import 'package:dieta/screens/search.dart';
-import 'package:dieta/screens/searchlocal.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -15,7 +14,7 @@ class App extends StatelessWidget {
       ),
       routes: {
         '/': (context) => const Home(),
-        '/search': (context) => const SearchLocal(),
+        '/search': (context) => const Search(),
       },
     );
   }
