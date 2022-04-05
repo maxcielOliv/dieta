@@ -1,33 +1,50 @@
+import 'package:dieta/models/dieta.dart';
 import 'package:dieta/models/refeicao.dart';
+import 'package:dieta/screens/editrefeicao.dart';
+import 'package:dieta/utils/format.dart';
 import 'package:flutter/material.dart';
 
 class EditDieta extends StatelessWidget {
-  final Refeicao refeicao;
-  const EditDieta({required this.refeicao, Key? key}) : super(key: key);
+  const EditDieta({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<Refeicao> valor = ValueNotifier(refeicao);
+    final dieta = Dieta();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dieta'),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pop(valor.value);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const EditRefeicao(),
+                ),
+              );
             },
-            icon: const Icon(Icons.save),
+            icon: const Icon(Icons.add),
           )
         ],
       ),
-      body: ValueListenableBuilder<Refeicao>(
-        valueListenable: valor,
+      body: ValueListenableBuilder<List<Refeicao>>(
+        valueListenable: dieta,
         builder: (context, lista, child) {
           return ListView.separated(
-            itemCount: refeicao.value.length,
+            shrinkWrap: true,
+            itemCount: lista.length,
             itemBuilder: (context, index) {
-              //final re = lista[index];
+              final refeicao = lista[index];
               return ListTile(
-                title: Text('${refeicao.value.single}'),
+                title: const Text('Refeição'),
+                subtitle: Text(
+                  '${formatarNumero(refeicao.qtd)} g | P: ${formatarNumero(refeicao.proteina)} | C: ${refeicao.carboidrato} | G: ${refeicao.gorduras} | ${refeicao.calorias} Kcal',
+                ),
+                trailing: IconButton(
+                  onPressed: () async {
+                    dieta.remove(index, refeicao);
+                  },
+                  icon: const Icon(Icons.delete_forever_rounded),
+                  color: Colors.red,
+                ),
               );
             },
             separatorBuilder: (context, index) => const Divider(),

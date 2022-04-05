@@ -1,8 +1,6 @@
 import 'package:dieta/models/alimento.dart';
-import 'package:dieta/models/dieta.dart';
 import 'package:dieta/models/refeicao.dart';
 import 'package:dieta/screens/editdieta.dart';
-import 'package:dieta/screens/editpage.dart';
 import 'package:dieta/screens/editrefeicao.dart';
 import 'package:dieta/screens/search.dart';
 import 'package:dieta/utils/format.dart';
@@ -69,30 +67,6 @@ class Home extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => EditDieta(refeicao: refeicao),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Dieta',
-                        style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: double.maxFinite,
-                  color: Colors.grey,
-                  child: Center(
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
                             builder: (context) => const EditRefeicao(),
                           ),
                         );
@@ -106,41 +80,6 @@ class Home extends StatelessWidget {
                         textAlign: TextAlign.start,
                       ),
                     ),
-                  ),
-                ),
-                ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: lista.length,
-                  itemBuilder: (context, index) {
-                    final alimento = lista[index];
-                    return ListTile(
-                      title: Text(
-                        alimento.nome,
-                        style: const TextStyle(fontSize: 28),
-                      ),
-                      subtitle: Text(
-                        '${alimento.qtd} g | ${alimento.calorias} Kcal | ${alimento.proteina} p | ${alimento.gorduras} g',
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      onTap: () async {
-                        final res = await Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => EditPage(alimento: alimento),
-                          ),
-                        );
-                        refeicao.add(res);
-                      },
-                      trailing: IconButton(
-                        onPressed: () async {
-                          refeicao.remove(index, alimento);
-                        },
-                        icon: const Icon(Icons.delete_forever_rounded),
-                        color: Colors.red,
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => const Divider(
-                    height: 0,
                   ),
                 ),
               ],

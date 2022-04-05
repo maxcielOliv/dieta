@@ -17,6 +17,15 @@ abstract class Reativa<T extends InfoNutricional> extends ValueNotifier<List<T>>
     }
   }
 
+  void trocar(int indice, T? item) {
+    if (item != null) {
+      if (item.qtd != value[indice].qtd) {
+        value[indice] = item;
+        notifyListeners();
+      }
+    }
+  }
+
   @override
   double get calorias => value.fold<double>(0.0, (soma, alimento) {
         return soma += alimento.calorias;
