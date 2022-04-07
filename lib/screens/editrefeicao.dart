@@ -1,95 +1,92 @@
 import 'package:dieta/models/alimento.dart';
-import 'package:dieta/models/dieta.dart';
-import 'package:dieta/models/refeicao.dart';
-import 'package:dieta/screens/editdieta.dart';
-import 'package:dieta/screens/editpage.dart';
-import 'package:dieta/screens/search.dart';
 import 'package:flutter/material.dart';
 
 class EditRefeicao extends StatelessWidget {
-  const EditRefeicao({Key? key}) : super(key: key);
+  final Alimento alimento;
+  const EditRefeicao({required this.alimento, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final refeicao = Refeicao();
-    final dieta = Dieta();
+    final ValueNotifier<Alimento> valor = ValueNotifier(alimento);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Refeição'),
         actions: [
           IconButton(
             icon: const Icon(
-              Icons.add,
-              size: 20,
+              Icons.save,
+              size: 38,
             ),
-            onPressed: () async {
-              final alimento =
-                  await Navigator.of(context).push<Alimento>(MaterialPageRoute(
-                builder: (context) => const Search(),
-              ));
-              if (alimento != null) {
-                refeicao.add(alimento);
-              }
+            onPressed: () {
+              // Retorna o novo alimento
+              Navigator.of(context).pop(valor.value);
             },
           ),
         ],
       ),
-      body: ValueListenableBuilder<List<Alimento>>(
-        valueListenable: refeicao,
-        builder: (context, lista, child) {
-          return Column(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child: Text(
+              alimento.nome,
+              style: const TextStyle(fontSize: 38),
+            ),
+          ),
+          const Divider(),
+          Center(
+            child: ValueListenableBuilder<Alimento>(
+              valueListenable: valor,
+              builder: (context, alimento, child) {
+                return Text(
+                  '${alimento.qtd}',
+                  style: const TextStyle(fontSize: 28),
+                );
+              },
+            ),
+          ),
+          const Divider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ListView.separated(
-                shrinkWrap: true,
-                itemCount: lista.length,
-                itemBuilder: (context, index) {
-                  final alimento = lista[index];
-                  return ListTile(
-                    title: Text(
-                      alimento.nome,
-                      style: const TextStyle(fontSize: 28),
-                    ),
-                    subtitle: Text(
-                      '${alimento.qtd} g | ${alimento.calorias} Kcal | ${alimento.proteina} p | ${alimento.gorduras} g',
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                    onTap: () async {
-                      final res = await Navigator.of(context).push<Alimento>(
-                        MaterialPageRoute(
-                          builder: (context) => EditPage(alimento: alimento),
-                        ),
-                      );
-                      refeicao.trocar(index, res);
-                    },
-                    trailing: IconButton(
-                      onPressed: () async {
-                        refeicao.remove(index, alimento);
-                      },
-                      icon: const Icon(Icons.delete_forever_rounded),
-                      color: Colors.red,
-                    ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(80, 50),
+                ),
+                child: const Text(
+                  '-10',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {
+                  if (valor.value.qtd - 10 > 0) {
+                    valor.value = valor.value.copyWith(
+                      qtd: valor.value.qtd - 10,
+                    );
+                  }
+                },
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(80, 50),
+                ),
+                child: const Text(
+                  '+10',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {
+                  valor.value = valor.value.copyWith(
+                    qtd: valor.value.qtd + 10,
                   );
                 },
-                separatorBuilder: (context, index) => const Divider(
-                  height: 0,
-                ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(200.0),
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const EditDieta(),
-                        ),
-                      );
-                      dieta.add(refeicao);
-                    },
-                    child: const Text('Adicionar')),
-              )
             ],
-          );
-        },
+          )
+        ],
       ),
     );
   }

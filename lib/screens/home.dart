@@ -1,7 +1,6 @@
 import 'package:dieta/models/alimento.dart';
 import 'package:dieta/models/refeicao.dart';
-import 'package:dieta/screens/editdieta.dart';
-import 'package:dieta/screens/editrefeicao.dart';
+import 'package:dieta/screens/refeicaopage.dart';
 import 'package:dieta/screens/search.dart';
 import 'package:dieta/utils/format.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +66,7 @@ class Home extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const EditRefeicao(),
+                            builder: (context) => const RefeicaoPage(),
                           ),
                         );
                       },

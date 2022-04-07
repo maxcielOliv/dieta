@@ -1,56 +1,28 @@
-import 'package:dieta/models/dieta.dart';
 import 'package:dieta/models/refeicao.dart';
-import 'package:dieta/screens/editrefeicao.dart';
-import 'package:dieta/utils/format.dart';
 import 'package:flutter/material.dart';
 
 class EditDieta extends StatelessWidget {
-  const EditDieta({Key? key}) : super(key: key);
+  final Refeicao refeicao;
+  const EditDieta({required this.refeicao, Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final dieta = Dieta();
+    final ValueNotifier<Refeicao> valor = ValueNotifier(refeicao);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dieta'),
         actions: [
           IconButton(
+            icon: const Icon(
+              Icons.save,
+              size: 38,
+            ),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const EditRefeicao(),
-                ),
-              );
+              Navigator.of(context).pop(valor.value);
             },
-            icon: const Icon(Icons.add),
-          )
+          ),
         ],
       ),
-      body: ValueListenableBuilder<List<Refeicao>>(
-        valueListenable: dieta,
-        builder: (context, lista, child) {
-          return ListView.separated(
-            shrinkWrap: true,
-            itemCount: lista.length,
-            itemBuilder: (context, index) {
-              final refeicao = lista[index];
-              return ListTile(
-                title: const Text('Refeição'),
-                subtitle: Text(
-                  '${formatarNumero(refeicao.qtd)} g | P: ${formatarNumero(refeicao.proteina)} | C: ${refeicao.carboidrato} | G: ${refeicao.gorduras} | ${refeicao.calorias} Kcal',
-                ),
-                trailing: IconButton(
-                  onPressed: () async {
-                    dieta.remove(index, refeicao);
-                  },
-                  icon: const Icon(Icons.delete_forever_rounded),
-                  color: Colors.red,
-                ),
-              );
-            },
-            separatorBuilder: (context, index) => const Divider(),
-          );
-        },
-      ),
+      body: Column(),
     );
   }
 }
