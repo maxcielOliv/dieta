@@ -49,7 +49,7 @@ class RefeicaoPage extends StatelessWidget {
                       style: const TextStyle(fontSize: 28),
                     ),
                     subtitle: Text(
-                      '${alimento.qtd} g | ${alimento.calorias} Kcal | ${alimento.proteina} p | ${alimento.gorduras} g',
+                      '${alimento.qtd} g | ${alimento.calorias} Kcal | ${alimento.proteinas} p | ${alimento.gorduras} g',
                       style: const TextStyle(fontSize: 18),
                     ),
                     onTap: () async {

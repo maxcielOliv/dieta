@@ -37,7 +37,7 @@ class DietaPage extends StatelessWidget {
               return ListTile(
                 title: const Text('Refeição'),
                 subtitle: Text(
-                  '${formatarNumero(refeicao.qtd)} g | P: ${formatarNumero(refeicao.proteina)} | C: ${refeicao.carboidrato} | G: ${refeicao.gorduras} | ${refeicao.calorias} Kcal',
+                  '${formatarNumero(refeicao.qtd)} g | P: ${formatarNumero(refeicao.proteinas)} | C: ${refeicao.carboidratos} | G: ${refeicao.gorduras} | ${refeicao.calorias} Kcal',
                 ),
                 onTap: () {
                   Navigator.of(context).push<Refeicao>(

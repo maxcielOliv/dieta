@@ -32,8 +32,8 @@ abstract class Reativa<T extends InfoNutricional> extends ValueNotifier<List<T>>
       });
 
   @override
-  double get carboidrato => value.fold<double>(0.0, (soma, alimento) {
-        return soma += alimento.carboidrato;
+  double get carboidratos => value.fold<double>(0.0, (soma, alimento) {
+        return soma += alimento.carboidratos;
       });
 
   @override
@@ -57,8 +57,8 @@ abstract class Reativa<T extends InfoNutricional> extends ValueNotifier<List<T>>
       });
 
   @override
-  double get proteina => value.fold<double>(0.0, (soma, alimento) {
-        return soma += alimento.proteina;
+  double get proteinas => value.fold<double>(0.0, (soma, alimento) {
+        return soma += alimento.proteinas;
       });
 
   @override

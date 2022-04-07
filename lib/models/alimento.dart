@@ -7,9 +7,9 @@ class Alimento implements InfoNutricional {
   @override
   final double qtd; // Quantidade em gramas do alimeto
   @override
-  final double proteina; // Quantidade em gramas de proteína
+  final double proteinas; // Quantidade em gramas de proteína
   @override
-  final double carboidrato; // Quantidade em gramas de carboidrato
+  final double carboidratos; // Quantidade em gramas de carboidrato
   @override
   final double gorduras; // Quantidade em gramas de gordura
   @override
@@ -23,20 +23,20 @@ class Alimento implements InfoNutricional {
   final DateTime criacao; // Data e hora da criação do registro
   final DateTime? atualizacao; // Data e hora da última atualização do registro
 
-  double get proteinaR => _arredondar(proteina);
-  double get carboidratoR => _arredondar(carboidrato);
+  double get proteinaR => _arredondar(proteinas);
+  double get carboidratoR => _arredondar(carboidratos);
   double get gorduraR => _arredondar(gorduras);
 
   @override
   double get calorias {
-    final p = proteina == 0 ? 1.0 : proteina;
-    final c = carboidrato == 0 ? 1.0 : carboidrato;
+    final p = proteinas == 0 ? 1.0 : proteinas;
+    final c = carboidratos == 0 ? 1.0 : carboidratos;
     final g = gorduras == 0 ? 1.0 : gorduras;
     return double.parse(((p + c * 4) + (g * 9)).toStringAsFixed(2));
   }
 
   String get info {
-    return 'Pro: ${proteina}g | Car: ${carboidrato}g | Gor: ${gorduras}g';
+    return 'Pro: ${proteinas}g | Car: ${carboidratos}g | Gor: ${gorduras}g';
   }
 
   Alimento({
@@ -44,8 +44,8 @@ class Alimento implements InfoNutricional {
     required this.nome,
     this.qtd = 100,
     required this.categoria,
-    this.proteina = 0,
-    this.carboidrato = 0,
+    this.proteinas = 0,
+    this.carboidratos = 0,
     this.gorduras = 0,
     this.gSaturadas,
     this.gTrans,
@@ -62,8 +62,8 @@ class Alimento implements InfoNutricional {
       'nome': nome,
       'qtd': qtd,
       'categoria': categoria,
-      'proteina': proteina,
-      'carboidrato': carboidrato,
+      'proteina': proteinas,
+      'carboidrato': carboidratos,
       'gordura': gorduras,
       'g_saturada': gSaturadas,
       'g_trans': gTrans,
@@ -81,8 +81,8 @@ class Alimento implements InfoNutricional {
       nome: json['nome'],
       qtd: json['qtd'].toDouble(),
       categoria: json['categoria'],
-      proteina: json['proteina'].toDouble(),
-      carboidrato: json['carboidrato'].toDouble(),
+      proteinas: json['proteina'].toDouble(),
+      carboidratos: json['carboidrato'].toDouble(),
       gorduras: json['gordura'].toDouble(),
       gSaturadas: json['g_saturada']?.toDouble(),
       gTrans: json['g_trans']?.toDouble(),
@@ -101,7 +101,7 @@ class Alimento implements InfoNutricional {
 
   @override
   String toString() {
-    return 'ID: ${id ?? '*'} - $nome\nQuantidade: ${qtd}g\nProteina: ${proteina}g\nCarboidrato: ${carboidrato}g\nGordura: ${gorduras}g\ng - Saturada: ${gSaturadas}g\n - Trans: ${gTrans}g\nFibra: ${fibras}g\nSódio: ${sodio}mg\n';
+    return 'ID: ${id ?? '*'} - $nome\nQuantidade: ${qtd}g\nProteina: ${proteinas}g\nCarboidrato: ${carboidratos}g\nGordura: ${gorduras}g\ng - Saturada: ${gSaturadas}g\n - Trans: ${gTrans}g\nFibra: ${fibras}g\nSódio: ${sodio}mg\n';
   }
 
   Alimento copyWith({required double qtd}) {
@@ -110,8 +110,8 @@ class Alimento implements InfoNutricional {
       nome: nome,
       qtd: qtd,
       categoria: categoria,
-      proteina: (proteina * qtd) / this.qtd,
-      carboidrato: (carboidrato * qtd) / this.qtd,
+      proteinas: (proteinas * qtd) / this.qtd,
+      carboidratos: (carboidratos * qtd) / this.qtd,
       gorduras: (gorduras * qtd) / this.qtd,
       gSaturadas: gSaturadas == null ? null : (gSaturadas! * qtd) / this.qtd,
       gTrans: gTrans == null ? null : (gTrans! * qtd) / this.qtd,

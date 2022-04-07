@@ -3,6 +3,7 @@ import 'package:dieta/models/refeicao.dart';
 import 'package:dieta/screens/refeicaopage.dart';
 import 'package:dieta/screens/search.dart';
 import 'package:dieta/utils/format.dart';
+import 'package:dieta/widget/car_info_nutricional.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -42,25 +43,11 @@ class Home extends StatelessWidget {
           builder: (context, lista, child) {
             return Column(
               children: [
+                CardInfoNutricional(infoNutricional: refeicao),
                 Container(
                   height: 100,
                   width: double.maxFinite,
-                  color: Colors.black,
-                  child: Center(
-                    child: Text(
-                      '${formatarNumero(refeicao.calorias)} Kcal',
-                      style: const TextStyle(
-                        fontSize: 40,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: double.maxFinite,
-                  color: Colors.grey,
+                  color: Colors.white,
                   child: Center(
                     child: TextButton(
                       onPressed: () {
@@ -73,8 +60,9 @@ class Home extends StatelessWidget {
                       child: const Text(
                         'Refeição',
                         style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.white,
+                          fontSize: 44,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
                         ),
                         textAlign: TextAlign.start,
                       ),
