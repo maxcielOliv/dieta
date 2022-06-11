@@ -32,8 +32,12 @@ dependencies:
   supabase_flutter: ^0.2.9
   intl: ^0.17.0
   http: ^0.13.4
+<<<<<<< HEAD
 
 
+=======
+  intl: ^0.17.0
+>>>>>>> b187f2442d5186c589f6b45b3a6e3d5e070c6caa
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   #cupertino_icons: ^1.0.2

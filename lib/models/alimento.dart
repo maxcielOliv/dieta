@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import 'package:app_dieta/models/info_nutricional.dart';
 
 class Alimento implements InfoNutricional{
+=======
+import 'package:dieta/models/info_nutricional.dart';
+
+class Alimento implements InfoNutricional {
+>>>>>>> b187f2442d5186c589f6b45b3a6e3d5e070c6caa
   final int? id; // Chave primária do alimeto
   final String nome; // Nome do alimento
   final int categoria; // Chave estrangeira da categoria do alimento
@@ -23,7 +29,14 @@ class Alimento implements InfoNutricional{
   final DateTime criacao; // Data e hora da criação do registro
   final DateTime? atualizacao; // Data e hora da última atualização do registro
 
+<<<<<<< HEAD
   // Propiedade calculada
+=======
+  double get proteinaR => _arredondar(proteinas);
+  double get carboidratoR => _arredondar(carboidratos);
+  double get gorduraR => _arredondar(gorduras);
+
+>>>>>>> b187f2442d5186c589f6b45b3a6e3d5e070c6caa
   @override
   double get calorias {
     final p = proteinas == 0 ? 1.0 : proteinas;
@@ -92,9 +105,15 @@ class Alimento implements InfoNutricional{
     );
   }
 
+<<<<<<< HEAD
   // double _arredondar(double valor) {
   //   return double.parse(valor.toStringAsFixed(2));
   // }
+=======
+  double _arredondar(double valor) {
+    return double.parse(valor.toStringAsFixed(2));
+  }
+>>>>>>> b187f2442d5186c589f6b45b3a6e3d5e070c6caa
 
   @override
   String toString() {
@@ -110,8 +129,12 @@ class Alimento implements InfoNutricional{
       proteinas: (proteinas * qtd) / this.qtd,
       carboidratos: (carboidratos * qtd) / this.qtd,
       gorduras: (gorduras * qtd) / this.qtd,
+<<<<<<< HEAD
       gSaturadas:
           gSaturadas == null ? null : (gSaturadas! * qtd) / this.qtd,
+=======
+      gSaturadas: gSaturadas == null ? null : (gSaturadas! * qtd) / this.qtd,
+>>>>>>> b187f2442d5186c589f6b45b3a6e3d5e070c6caa
       gTrans: gTrans == null ? null : (gTrans! * qtd) / this.qtd,
       fibras: fibras == null ? null : (fibras! * qtd) / this.qtd,
       sodio: sodio == null ? null : (sodio! * qtd) / this.qtd,

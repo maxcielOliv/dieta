@@ -99,7 +99,11 @@ class _SearchState extends State<Search> {
                   title: Text(alimento.nome),
                   subtitle: Text(alimento.info),
                   onTap: () {
+<<<<<<< HEAD
                     Navigator.pop(context, alimento);
+=======
+                    Navigator.pop<Alimento>(context, alimento);
+>>>>>>> b187f2442d5186c589f6b45b3a6e3d5e070c6caa
                   },
                 );
               },

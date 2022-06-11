@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import 'package:app_dieta/models/info_nutricional.dart';
+=======
+import 'package:dieta/models/info_nutricional.dart';
+>>>>>>> b187f2442d5186c589f6b45b3a6e3d5e070c6caa
 import 'package:flutter/material.dart';
 
 import 'texto_animado.dart';
