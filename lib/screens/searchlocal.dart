@@ -1,6 +1,6 @@
-import 'package:dieta/models/alimento.dart';
-import 'package:dieta/repository/repository.dart';
-import 'package:dieta/repository/repository_server.dart';
+import 'package:app_dieta/models/alimento.dart';
+import 'package:app_dieta/repository/repository.dart';
+import 'package:app_dieta/repository/repository_server.dart';
 import 'package:flutter/material.dart';
 
 class SearchLocal extends StatefulWidget {

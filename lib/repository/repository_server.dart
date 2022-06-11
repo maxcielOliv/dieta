@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:dieta/models/alimento.dart';
-import 'package:dieta/repository/repository.dart';
+import 'package:app_dieta/models/alimento.dart';
+import 'package:app_dieta/repository/repository.dart';
 import 'package:http/http.dart' as http;
 
 class RepositoryServer extends Repository {

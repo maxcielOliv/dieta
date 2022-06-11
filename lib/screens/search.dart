@@ -1,6 +1,6 @@
-import 'package:dieta/models/alimento.dart';
-import 'package:dieta/repository/repository.dart';
-import 'package:dieta/repository/repository_supa.dart';
+import 'package:app_dieta/models/alimento.dart';
+import 'package:app_dieta/repositorio/repositorio.dart';
+import 'package:app_dieta/repositorio/repositorio_supa.dart';
 import 'package:flutter/material.dart';
 
 class Search extends StatefulWidget {
@@ -13,7 +13,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final _controller = TextEditingController();
   final _focus = FocusNode();
-  final Repository _repository = RepositorySupa();
+  final Repositorio _repositorio = RepositorioSupa();
 
   @override
   void dispose() {
@@ -56,7 +56,7 @@ class _SearchState extends State<Search> {
         ],
       ),
       body: FutureBuilder<List<Alimento>>(
-          future: _repository.getAlimentosFiltrados(_controller.text),
+          future: _repositorio.getAlimentosFiltrados(_controller.text),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Align(
@@ -91,15 +91,21 @@ class _SearchState extends State<Search> {
                 ),
               );
             }
-            return ListView.builder(
+            return ListView.separated(
               itemCount: listaAlimentos.length,
               itemBuilder: (context, index) {
                 final alimento = listaAlimentos[index];
                 return ListTile(
                   title: Text(alimento.nome),
                   subtitle: Text(alimento.info),
+                  onTap: () {
+                    Navigator.pop(context, alimento);
+                  },
                 );
               },
+              separatorBuilder: (context, index) => const Divider(
+                height: 0,
+              ),
             );
           }),
     );

@@ -1,4 +1,4 @@
-import 'package:dieta/models/alimento.dart';
+import 'package:app_dieta/models/alimento.dart';
 
 abstract class Repository {
   Future<List<Alimento>> getAlimentos();

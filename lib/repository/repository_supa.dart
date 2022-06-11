@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:dieta/models/alimento.dart';
-import 'package:dieta/repository/repository.dart';
+import 'package:app_dieta/models/alimento.dart';
+import 'package:app_dieta/repository/repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RepositorySupa extends Repository {

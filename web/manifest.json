@@ -1,6 +1,6 @@
 {
-    "name": "dieta",
-    "short_name": "dieta",
+    "name": "app_dieta",
+    "short_name": "app_dieta",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
